@@ -5,8 +5,7 @@
 This ER diagram models the backend database for a small creator-run Instagram store selling thrifted (secondhand) and handmade fashion items. The design distinguishes between **thrift products**, which are unique one-off pieces, and **handmade products**, which can be produced and stocked in multiple units — while keeping both under a single, consistent product model.
  
 ![ER Diagram](./instagram-thrift-creator-store.svg)
- 
-> Note: update the image filename above to match your actual exported file.
+
  
 ## Entities
  
