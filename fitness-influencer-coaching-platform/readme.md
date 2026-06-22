@@ -4,7 +4,7 @@
  
 This ER diagram models the backend database for an online fitness coaching platform, where one or more trainers manage multiple clients through structured coaching programs, live sessions, and progress check-ins. This is explicitly **not** a gym management system — there's no equipment or facility tracking. It's an online coaching ecosystem covering consultations, subscriptions, diet/workout guidance, and progress tracking.
  
-![ER Diagram](./fitness-influencer-coaching-platform.svg)
+![ER Diagram](./fitness-influencer-platform.svg)
  
 > Diagram source code: [`schema.eraser`](./schema.eraserdiagram) — paste this back into Eraser.io to view or edit the diagram directly.
  
