@@ -1,0 +1,105 @@
+Vehicles [icon : car, color : blue] {
+  id string pk
+  owner_name string not null
+  phone string not null
+  vehicle_number string not null unique
+
+  category_id string fk
+  access_category_id string fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Vehicle_Category [icon : layers] {
+  id : string pk
+  category string not null unique
+  
+  created_at timestamp
+  updated_at timestamp
+}
+
+Access_Category [icon : layers]{
+  id string pk
+  access_type string not null unique
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Parking_Slot [icon: parking, color : red] {
+  id string pk
+  slot_number string not null unique
+  zone_id string fk
+  slot_category_id string fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Zone [icon : cloud] {
+  id string pk
+  zone_number string not null unique
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Parking_Slot_category [icon : layers] {
+  id string pk
+  slot_category string not null unique
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Session [icon : clock, color : green]{
+  id string pk
+  entry_time timestamp not null
+  exit_time timestamp nullable
+
+  vehicle_id string fk
+  parking_slot_id string fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Tickets [icon : tickets, color : yellow] {
+  id string pk 
+  ticket_number string not null unique
+
+  session_id string fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Payment [icon : money, color : orange ]{
+  id string pk
+  amount decimal not null
+  payment_status ENUM
+  payment_method ENUM
+  
+  session_id string fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Access_Category.id < Vehicles.access_category_id
+
+Vehicle_Category.id < Vehicles.category_id
+
+
+Zone.id < Parking_Slot.zone_id
+
+Parking_Slot_category.id < Parking_Slot.slot_category_id
+
+Vehicles.id < Session.vehicle_id
+
+Parking_Slot.id < Session.parking_slot_id
+
+Session.id  - Tickets.session_id
+
+Payment.session_id - Session.id
