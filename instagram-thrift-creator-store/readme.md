@@ -6,7 +6,7 @@ This ER diagram models the backend database for a small creator-run Instagram st
  
 ![ER Diagram](./instagram-thrift-creator-store.svg)
 
- 
+ > Diagram source code: [`schema.eraser`](./schema.eraserdiagram) — paste this back into Eraser.io to view or edit the diagram directly.
 ## Entities
  
 | Entity | Purpose |
