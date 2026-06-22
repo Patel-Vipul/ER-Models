@@ -1,0 +1,111 @@
+Patients [icon: user-round, color : teal]{
+  id string pk
+  full_name string not null
+  email string nullable
+  phone string not null
+  DOB Date
+  Gender string not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Doctors [icon : user-check, color: indigo] {
+  id string pk
+  full_name string not null
+  email string not null unique
+  phone string not null unique
+  experience_year int not null
+
+  specialist_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Specility [icon : briefcase-medical]{
+  id string pk
+  speciality_name string not null unique
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Appointments [icon : calendar, color : red]{
+  id string pk
+  appointment_date datetime not null
+  appointment_status ENUM
+  reason_for_visit text not null
+
+  pateint_id fk not null
+  doctor_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Consultations [icon : message-square, color : violet]{
+  id string pk
+  diagnosis_notes text 
+  consultaion_date Date
+  appointment_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Tests [icon : microscope, color : pink]{
+  id string pk
+  test_status ENUM
+
+  consultant_id fk not null
+  test_type_id fk not null
+  report_id fk 
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Test_types [icon : layers]{
+  id string pk
+  test_type string not null unique
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Reports [icon : file-text, color :  green]{
+  id string pk
+  report_date Date not null
+  description text
+  report_file_url string nullable
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Payments [icon: money, color :orange] {
+  id string pk
+  amount_paid decimal not null
+  payment_status ENUM
+  payment_method ENUM
+
+  consultant_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Specility.id < Doctors.specialist_id
+
+Patients.id < Appointments.pateint_id
+Doctors.id < Appointments.doctor_id
+
+Appointments.id - Consultations.appointment_id
+
+Consultations.id < Tests.consultant_id
+Test_types.id < Tests.test_type_id
+
+Reports.id < Tests.report_id
+
+Consultations.id - Payments.consultant_id 
