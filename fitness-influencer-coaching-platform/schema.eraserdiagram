@@ -1,0 +1,152 @@
+Clients [icon : user, color : blue]{
+  id string pk,
+  full_name string not null,
+  email string not null unique
+  phone string not null
+  DOB Date not null
+
+  trainer_id fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Trainers [icon : user, color : violet] {
+  id string pk
+  full_name string not null
+  email string not null unique
+  phone string not null
+  specialization ENUM
+  experience_year int 
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Programs [icon : book, color: red]{
+  id string pk
+  plan_name string not null
+  description text not null
+  plan_period int
+  price decimal not null
+
+  trainer_id fk not null
+  diet_plan_id fk nullable
+  workout_plan_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Diet_Plan [icon : utensils, color : yellow]{
+  id string pk
+  title string not null
+  description text not null
+  calories_targe int not null
+  fat_grams int 
+  protein_grams int
+  carbs_grams int
+  dietry_type ENUM
+  created_at timestamp
+  updated_at timestamp
+}
+
+Workout_Plan [icon : dumbbell, color: black] {
+  id string pk
+  title string not null
+  description text not null
+  difficulty_level ENUM
+  workout_type ENUM
+  session_per_week int
+  duration_minutes int
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Subscriptions [icon : repeat] {
+  id string pk
+  start_date Date
+  end_time Date
+  client_id fk not null
+  program_id fk not null
+  status ENUM
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Payments [icon : money, color : orange]{
+  id string pk
+  amount_paid decimal not null
+  payment_status ENUM
+  payment_method ENUM
+
+  subscription_id fk 
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Sessions [icon : layers, color : green] {
+  id string pk
+  start_time datetime not null
+  end_time datetime not null
+  session_type ENUM  
+  session_status ENUM
+  metting_link string nullable
+
+  client_id fk not null
+  trainer_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Check_in [icon : check]{
+  id string pk
+  submit_date Date
+  weight decimal not null
+  chest_cm decimal nullable
+  hip_cm decimal nullable
+  waist decimal nullable
+  client_notes text
+  photo_url string nullable
+
+  subscription_id fk 
+  
+  created_at timestamp
+  updated_at timestamp
+}
+
+Trainer_Notes [icon : book]{
+  id string pk
+  note text not null
+
+  client_id fk not null
+  trainer_id fk not null
+  check_in_id fk nullable
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Trainers.id < Clients.trainer_id
+Trainers.id < Programs.trainer_id
+
+Diet_Plan.id < Programs.diet_plan_id 
+Workout_Plan.id < Programs.workout_plan_id
+
+Programs.id < Subscriptions.program_id           
+Clients.id < Subscriptions.client_id
+Subscriptions.id - Payments.subscription_id
+Clients.id < Sessions.client_id
+Trainers.id < Sessions.trainer_id
+
+Subscriptions.id < Check_in.subscription_id
+
+Check_in.id - Trainer_Notes.check_in_id
+
+Clients.id < Trainer_Notes.client_id
+Trainers.id < Trainer_Notes.trainer_id
+
