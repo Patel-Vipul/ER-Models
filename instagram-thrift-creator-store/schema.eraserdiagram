@@ -1,0 +1,111 @@
+Customers [icon : user]{
+  id string pk
+  full_name string not null
+  email string unique not null
+  password string not null
+  phone string not null
+  is_verified boolean
+  
+  created_at timestamp
+  updated_at timestamp
+}
+
+Products [icon : package] {
+  id string pk
+  name string not null
+  description string not null
+  price decimal not null
+  size string null
+  color string null
+  type ENUM
+  condition string null
+
+  category_id fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Categories [icon: layers]{
+  id string pk
+  name string not null
+  description string null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Orders [icon : shopping-bag]{
+  id string pk
+  order_date DATETIME
+  order_status ENUM
+  total decimal not null
+
+  customer_id fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Order_Items[icon: list] {
+  id string pk
+  unit_price decimal not null
+  quantity int not null
+
+  order_id fk
+  product_id fk
+  
+  created_at timestamp
+  updated_at timestamp
+}
+
+Payments [icon : money] {
+  id string pk
+  amount decimal not null
+  payment_mode ENUM
+  payment_status ENUM
+  payment_date DATETIME
+
+  order_id fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Shippings [icon : truck] {
+  id string pk
+  delivery_address string not null
+  shipping_date DATETIME
+  deliverd_data DATETIME
+  shipping_status ENUM
+
+  order_id fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Inventory [icon : archive] {
+  id string pk
+  stock int not null
+
+  product_id fk
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+
+Customers.id < Orders.customer_id
+
+Orders.id < Order_Items.order_id
+
+Products.id < Order_Items.product_id 
+
+Categories.id < Products.category_id
+
+Products.id - Inventory.product_id
+
+Shippings.order_id  - Orders.id
+
+Payments.order_id - Orders.id
