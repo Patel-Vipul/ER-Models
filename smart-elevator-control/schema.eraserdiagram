@@ -1,0 +1,129 @@
+Buidings [icon: building]{
+  id string pk
+  building_name string not null
+  location string not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Shafts [icon : container] {
+  id string pk
+  shaft_code string not null
+
+  buiding_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Floors [icon : layers] {
+  id string pk
+  floor_number int not null
+
+  buiding_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Elevators [icon : arrow-up-down]{
+  id string pk
+  elevator_code string not null
+  capacity int not null
+
+  shaft_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Floor_Elevator_Mapper [icon : shuffle]{
+  id string pk
+
+  floor_id fk not null
+  elevator_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Elevator_Status [icon : report]{
+  id string pk
+  elevator_id ok not null unique
+
+  elevator_status ENUM
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Requests [icon : users] {
+  id string pk
+  direction ENUM
+  request_status ENUM
+
+  floor_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Ride_Allocations [icon : route] {
+  id string pk
+  start_floor_id not null
+  end_floor_id not null
+
+  request_id fk not null
+  elevator_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Ride_Logs [icon: logs] {
+  id string pk
+
+  ride_allocation_id fk not null
+  start_time datetime
+  end_time datetime
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Maintainance [icon : wrench] {
+  id string pk
+  maintainance_date datetime
+  maintainance_status ENUM
+  description text not null
+
+  elevator_id fk not null
+
+  created_at timestamp
+  updated_at timestamp
+}
+
+Buidings.id < Shafts.buiding_id
+Buidings.id < Floors.buiding_id
+
+Shafts.id - Elevators.shaft_id
+
+
+Floors.id < Requests.floor_id
+
+
+Floors.id < Floor_Elevator_Mapper.floor_id
+Elevators.id < Floor_Elevator_Mapper.elevator_id
+
+Requests.id - Ride_Allocations.request_id
+Elevators.id < Ride_Allocations.elevator_id
+
+Elevators.id - Elevator_Status.elevator_id
+
+Elevators.id < Maintainance.elevator_id
+
+Ride_Allocations.id - Ride_Logs.ride_allocation_id
+
+Floors.id < Ride_Allocations.start_floor_id
+Floors.id < Ride_Allocations.end_floor_id
