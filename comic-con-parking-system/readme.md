@@ -4,7 +4,7 @@
  
 This ER diagram models the parking management system for a large Comic-Con India venue. The venue spans multiple zones with vehicles entering across multiple event days, using bikes, cars, SUVs, cabs, and EVs. Some parking spots are reserved for special categories — VIP guests, staff, exhibitors, and cosplayers with props — while others support EV charging or general public use.
  
-![ER Diagram](./comic-con-parking.svg)
+![ER Diagram](./smart-elevator-control.svg)
 
 > Diagram source code: [`schema.eraser`](./schema.eraserdiagram) — paste this back into Eraser.io to view or edit the diagram directly.
  
